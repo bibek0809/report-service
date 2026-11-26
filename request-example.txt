@@ -1,0 +1,31 @@
+{
+  "templateName": "employee_report",
+  "format": "PDF",
+  "reportTitle": "Employee Report",
+  "parameters": {
+    "ReportTitle": "Employee Report",
+    "GeneratedBy": "Report Service"
+  },
+  "dataSource": [
+    {
+      "name": "Ada Lovelace",
+      "department": "Engineering",
+      "salary": 125000
+    },
+    {
+      "name": "Grace Hopper",
+      "department": "Engineering",
+      "salary": 132000
+    },
+    {
+      "name": "Alan Turing",
+      "department": "Research",
+      "salary": 128500
+    },
+    {
+      "name": "Margaret Hamilton",
+      "department": "Engineering",
+      "salary": 130000
+    }
+  ]
+}

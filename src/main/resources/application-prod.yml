@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  netty:
+    connection-timeout: 2s
+    idle-timeout: 15s
+
+jasper:
+  cache-enabled: true
+  generation-timeout: 30s
+  async-compilation: true
+
+logging:
+  level:
+    root: WARN
+    com.example.jasper: INFO
+    reactor.netty: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  endpoint:
+    health:
+      show-details: never

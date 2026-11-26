@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd
+                                  http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd"
+              name="software_engineer_resume" pageWidth="595" pageHeight="842"
+              columnWidth="595" leftMargin="0" rightMargin="0"
+              topMargin="0" bottomMargin="0" uuid="7a2e2c1a-1111-4a2b-9c3d-123456789abc">
+
+    <property name="net.sf.jasperreports.export.pdf.embedded" value="true"/>
+    <property name="net.sf.jasperreports.export.pdf.compress" value="true"/>
+
+    <!-- ===================== FONTS & STYLES ===================== -->
+    <style name="DefaultStyle" fontName="DejaVu Sans" fontSize="10" pdfFontName="DejaVu Sans" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+    <style name="NameStyle" style="DefaultStyle" fontSize="28" isBold="true" forecolor="#1A1A2E"/>
+    <style name="TitleStyle" style="DefaultStyle" fontSize="12" forecolor="#4A5568"/>
+    <style name="SectionHeaderStyle" style="DefaultStyle" fontSize="11" isBold="true" forecolor="#FFFFFF" backcolor="#2D3748"/>
+    <style name="SidebarTextStyle" style="DefaultStyle" fontSize="9" forecolor="#E2E8F0"/>
+    <style name="SidebarLabelStyle" style="SidebarTextStyle" isBold="true" forecolor="#A0AEC0"/>
+    <style name="MainTextStyle" style="DefaultStyle" fontSize="9.5" forecolor="#2D3748"/>
+    <style name="CompanyStyle" style="MainTextStyle" fontSize="11" isBold="true" forecolor="#1A202C"/>
+    <style name="RoleStyle" style="MainTextStyle" fontSize="10" isBold="true" forecolor="#2D3748"/>
+    <style name="DateStyle" style="MainTextStyle" fontSize="9" forecolor="#718096" isItalic="true"/>
+
+    <!-- ===================== SUBDATASETS ===================== -->
+    <subDataset name="ExperienceDataset" uuid="7a2e2c1a-2222-4a2b-9c3d-123456789abc">
+        <field name="company" class="java.lang.String"/>
+        <field name="role" class="java.lang.String"/>
+        <field name="location" class="java.lang.String"/>
+        <field name="dateRange" class="java.lang.String"/>
+        <field name="highlights" class="java.util.List"/>
+        <field name="techStack" class="java.lang.String"/>
+    </subDataset>
+
+    <subDataset name="EducationDataset" uuid="7a2e2c1a-3333-4a2b-9c3d-123456789abc">
+        <field name="institution" class="java.lang.String"/>
+        <field name="degree" class="java.lang.String"/>
+        <field name="location" class="java.lang.String"/>
+        <field name="dateRange" class="java.lang.String"/>
+        <field name="gpa" class="java.lang.String"/>
+    </subDataset>
+
+    <subDataset name="ProjectDataset" uuid="7a2e2c1a-4444-4a2b-9c3d-123456789abc">
+        <field name="name" class="java.lang.String"/>
+        <field name="description" class="java.lang.String"/>
+        <field name="techStack" class="java.lang.String"/>
+        <field name="url" class="java.lang.String"/>
+    </subDataset>
+
+    <subDataset name="SkillDataset" uuid="7a2e2c1a-5555-4a2b-9c3d-123456789abc">
+        <field name="name" class="java.lang.String"/>
+        <field name="level" class="java.lang.Integer"/>
+        <field name="category" class="java.lang.String"/>
+    </subDataset>
+
+    <subDataset name="CertDataset" uuid="7a2e2c1a-6666-4a2b-9c3d-123456789abc">
+        <field name="name" class="java.lang.String"/>
+        <field name="issuer" class="java.lang.String"/>
+        <field name="year" class="java.lang.String"/>
+    </subDataset>
+
+    <!-- ===================== PARAMETERS ===================== -->
+    <parameter name="P_FULL_NAME" class="java.lang.String"/>
+    <parameter name="P_JOB_TITLE" class="java.lang.String"/>
+    <parameter name="P_EMAIL" class="java.lang.String"/>
+    <parameter name="P_PHONE" class="java.lang.String"/>
+    <parameter name="P_LOCATION" class="java.lang.String"/>
+    <parameter name="P_LINKEDIN" class="java.lang.String"/>
+    <parameter name="P_GITHUB" class="java.lang.String"/>
+    <parameter name="P_WEBSITE" class="java.lang.String"/>
+    <parameter name="P_SUMMARY" class="java.lang.String"/>
+    <parameter name="P_EXPERIENCE" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <parameter name="P_EDUCATION" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <parameter name="P_PROJECTS" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <parameter name="P_SKILLS" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <parameter name="P_CERTIFICATIONS" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <parameter name="P_LANGUAGES" class="java.lang.String"/>
+    <parameter name="P_INTERESTS" class="java.lang.String"/>
+
+    <!-- ===================== SIDEBAR BACKGROUND ===================== -->
+    <background>
+        <band height="842" splitType="Stretch">
+            <rectangle>
+                <reportElement x="0" y="0" width="200" height="842" backcolor="#1A202C" uuid="7a2e2c1a-7777-4a2b-9c3d-123456789abc"/>
+            </rectangle>
+            <rectangle>
+                <reportElement x="0" y="0" width="200" height="180" backcolor="#2D3748" uuid="7a2e2c1a-8888-4a2b-9c3d-123456789abc"/>
+            </rectangle>
+        </band>
+    </background>
+
+    <!-- ===================== TITLE BAND (Sidebar Header) ===================== -->
+    <title>
+        <band height="180" splitType="Stretch">
+            <ellipse>
+                <reportElement x="60" y="20" width="80" height="80" backcolor="#4A5568" uuid="7a2e2c1a-9999-4a2b-9c3d-123456789abc"/>
+            </ellipse>
+            <staticText>
+                <reportElement x="60" y="45" width="80" height="30" forecolor="#FFFFFF" uuid="7a2e2c1a-aaaa-4a2b-9c3d-123456789abc"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <text><![CDATA[👤]]></text>
+            </staticText>
+
+            <textField>
+                <reportElement style="NameStyle" x="10" y="110" width="180" height="35" forecolor="#FFFFFF" uuid="7a2e2c1a-bbbb-4a2b-9c3d-123456789abc"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$P{P_FULL_NAME}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement style="TitleStyle" x="10" y="148" width="180" height="20" forecolor="#A0AEC0" uuid="7a2e2c1a-cccc-4a2b-9c3d-123456789abc"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$P{P_JOB_TITLE}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+
+    <!-- ===================== COLUMN HEADER (Right Column Headers) ===================== -->
+    <!-- MUST come BEFORE detail band per JasperReports schema -->
+    <columnHeader>
+        <band height="60" splitType="Stretch">
+            <staticText>
+                <reportElement style="SectionHeaderStyle" x="220" y="0" width="360" height="22" forecolor="#1A202C" backcolor="#E2E8F0" uuid="7a2e2c1a-0014-4a2b-9c3d-123456789abc"/>
+                <textElement verticalAlignment="Middle">
+                    <paragraph leftIndent="10"/>
+                </textElement>
+                <text><![CDATA[PROFESSIONAL SUMMARY]]></text>
+            </staticText>
+
+            <textField isStretchWithOverflow="true" textAdjust="StretchHeight">
+                <reportElement style="MainTextStyle" x="220" y="28" width="360" height="32" uuid="7a2e2c1a-0015-4a2b-9c3d-123456789abc"/>
+                <textElement>
+                    <paragraph leftIndent="5"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{P_SUMMARY}]]></textFieldExpression>
+            </textField>
+        </band>
+    </columnHeader>
+
+    <!-- ===================== DETAIL (Sidebar Content) ===================== -->
+    <detail>
+        <!-- Contact Section -->
+        <band height="140" splitType="Stretch">
+            <printWhenExpression><![CDATA[
+                ($P{P_EMAIL} != null && !$P{P_EMAIL}.isEmpty()) ||
+                ($P{P_PHONE} != null && !$P{P_PHONE}.isEmpty()) ||
+                ($P{P_LOCATION} != null && !$P{P_LOCATION}.isEmpty())
+            ]]></printWhenExpression>
+
+            <staticText>
+                <reportElement style="SectionHeaderStyle" x="15" y="0" width="170" height="22" backcolor="#2D3748" uuid="7a2e2c1a-dddd-4a2b-9c3d-123456789abc"/>
+                <textElement verticalAlignment="Middle">
+                    <paragraph leftIndent="8"/>
+                </textElement>
+                <text><![CDATA[CONTACT]]></text>
+            </staticText>
+
+            <textField isStretchWithOverflow="true">
+                <reportElement style="SidebarTextStyle" x="15" y="28" width="170" height="16" uuid="7a2e2c1a-eeee-4a2b-9c3d-123456789abc"/>
+                <textElement>
+                    <paragraph leftIndent="20"/>
+                </textElement>
+                <textFieldExpression><![CDATA["✉ " + $P{P_EMAIL}]]></textFieldExpression>
+            </textField>
+
+            <textField isStretchWithOverflow="true">
+                <reportElement style="SidebarTextStyle" x="15" y="48" width="170" height="16" uuid="7a2e2c1a-ffff-4a2b-9c3d-123456789abc"/>
+                <textElement>
+                    <paragraph leftIndent="20"/>
+                </textElement>
+                <textFieldExpression><![CDATA["☎ " + $P{P_PHONE}]]></textFieldExpression>
+            </textField>
+
+            <textField isStretchWithOverflow="true">
+                <reportElement style="SidebarTextStyle" x="15" y="68" width="170" height="16" uuid="7a2e2c1a-0001-4a2b-9c3d-123456789abc"/>
+                <textElement>
+                    <paragraph leftIndent="20"/>
+                </textElement>
+                <textFieldExpression><![CDATA["📍 " + $P{P_LOCATION}]]></textFieldExpression>
+            </textField>
+
+            <textField isStretchWithOverflow="true">
+                <reportElement style="SidebarTextStyle" x="15" y="88" width="170" height="16" uuid="7a2e2c1a-0002-4a2b-9c3d-123456789abc"/>
+                <textElement>
+                    <paragraph leftIndent="20"/>
+                </textElement>
+                <textFieldExpression><![CDATA["🔗 " + $P{P_LINKEDIN}]]></textFieldExpression>
+            </textField>
+
+            <textField isStretchWithOverflow="true">
+                <reportElement style="SidebarTextStyle" x="15" y="108" width="170" height="16" uuid="7a2e2c1a-0003-4a2b-9c3d-123456789abc"/>
+                <textElement>
+                    <paragraph leftIndent="20"/>
+                </textElement>
+                <textFieldExpression><![CDATA["💻 " + $P{P_GITHUB}]]></textFieldExpression>
+            </textField>
+        </band>
+
+        <!-- Technical Skills with Visual Bars -->
+        <band height="200" splitType="Stretch">
+            <printWhenExpression><![CDATA[$P{P_SKILLS} != null]]></printWhenExpression>
+
+            <staticText>
+                <reportElement style="SectionHeaderStyle" x="15" y="0" width="170" height="22" backcolor="#2D3748" uuid="7a2e2c1a-0004-4a2b-9c3d-123456789abc"/>
+                <textElement verticalAlignment="Middle">
+                    <paragraph leftIndent="8"/>
+                </textElement>
+                <text><![CDATA[TECHNICAL SKILLS]]></text>
+            </staticText>
+
+            <componentElement>
+                <reportElement x="15" y="28" width="170" height="170" uuid="7a2e2c1a-0005-4a2b-9c3d-123456789abc"/>
+                <jr:list printOrder="Vertical">
+                    <datasetRun subDataset="SkillDataset" uuid="7a2e2c1a-0006-4a2b-9c3d-123456789abc">
+                        <dataSourceExpression><![CDATA[$P{P_SKILLS}]]></dataSourceExpression>
+                    </datasetRun>
+                    <jr:listContents height="24" width="170">
+                        <textField>
+                            <reportElement style="SidebarTextStyle" x="0" y="0" width="120" height="12" uuid="7a2e2c1a-0007-4a2b-9c3d-123456789abc"/>
+                            <textElement/>
+                            <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+                        </textField>
+
+                        <textField>
+                            <reportElement style="SidebarTextStyle" x="125" y="0" width="45" height="12" forecolor="#63B3ED" uuid="7a2e2c1a-0008-4a2b-9c3d-123456789abc"/>
+                            <textElement textAlignment="Right"/>
+                            <textFieldExpression><![CDATA[$F{level} + "%"]]></textFieldExpression>
+                        </textField>
+
+                        <rectangle>
+                            <reportElement x="0" y="14" width="170" height="6" backcolor="#4A5568" uuid="7a2e2c1a-0009-4a2b-9c3d-123456789abc"/>
+                            <graphicElement>
+                                <pen lineWidth="0"/>
+                            </graphicElement>
+                        </rectangle>
+
+                        <rectangle>
+                            <reportElement x="0" y="14" width="170" height="6" backcolor="#63B3ED" uuid="7a2e2c1a-000a-4a2b-9c3d-123456789abc">
+                                <printWhenExpression><![CDATA[$F{level} != null]]></printWhenExpression>
+                            </reportElement>
+                            <graphicElement>
+                                <pen lineWidth="0"/>
+                            </graphicElement>
+                        </rectangle>
+                    </jr:listContents>
+                </jr:list>
+            </componentElement>
+        </band>
+
+        <!-- Certifications -->
+        <band height="120" splitType="Stretch">
+            <printWhenExpression><![CDATA[$P{P_CERTIFICATIONS} != null]]></printWhenExpression>
+
+            <staticText>
+                <reportElement style="SectionHeaderStyle" x="15" y="0" width="170" height="22" backcolor="#2D3748" uuid="7a2e2c1a-000b-4a2b-9c3d-123456789abc"/>
+                <textElement verticalAlignment="Middle">
+                    <paragraph leftIndent="8"/>
+                </textElement>
+                <text><![CDATA[CERTIFICATIONS]]></text>
+            </staticText>
+
+            <componentElement>
+                <reportElement x="15" y="28" width="170" height="90" uuid="7a2e2c1a-000c-4a2b-9c3d-123456789abc"/>
+                <jr:list printOrder="Vertical">
+                    <datasetRun subDataset="CertDataset" uuid="7a2e2c1a-000d-4a2b-9c3d-123456789abc">
+                        <dataSourceExpression><![CDATA[$P{P_CERTIFICATIONS}]]></dataSourceExpression>
+                    </datasetRun>
+                    <jr:listContents height="28" width="170">
+                        <textField isStretchWithOverflow="true">
+                            <reportElement style="SidebarTextStyle" x="0" y="0" width="170" height="14" uuid="7a2e2c1a-000e-4a2b-9c3d-123456789abc"/>
+                            <textElement>
+                                <font isBold="true"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement style="SidebarLabelStyle" x="0" y="14" width="170" height="12" uuid="7a2e2c1a-000f-4a2b-9c3d-123456789abc"/>
+                            <textElement/>
+                            <textFieldExpression><![CDATA[$F{issuer} + " • " + $F{year}]]></textFieldExpression>
+                        </textField>
+                    </jr:listContents>
+                </jr:list>
+            </componentElement>
+        </band>
+
+        <!-- Languages -->
+        <band height="70" splitType="Stretch">
+            <printWhenExpression><![CDATA[$P{P_LANGUAGES} != null && !$P{P_LANGUAGES}.isEmpty()]]></printWhenExpression>
+
+            <staticText>
+                <reportElement style="SectionHeaderStyle" x="15" y="0" width="170" height="22" backcolor="#2D3748" uuid="7a2e2c1a-0010-4a2b-9c3d-123456789abc"/>
+                <textElement verticalAlignment="Middle">
+                    <paragraph leftIndent="8"/>
+                </textElement>
+                <text><![CDATA[LANGUAGES]]></text>
+            </staticText>
+
+            <textField isStretchWithOverflow="true">
+                <reportElement style="SidebarTextStyle" x="15" y="28" width="170" height="40" uuid="7a2e2c1a-0011-4a2b-9c3d-123456789abc"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$P{P_LANGUAGES}]]></textFieldExpression>
+            </textField>
+        </band>
+
+        <!-- Interests -->
+        <band height="70" splitType="Stretch">
+            <printWhenExpression><![CDATA[$P{P_INTERESTS} != null && !$P{P_INTERESTS}.isEmpty()]]></printWhenExpression>
+
+            <staticText>
+                <reportElement style="SectionHeaderStyle" x="15" y="0" width="170" height="22" backcolor="#2D3748" uuid="7a2e2c1a-0012-4a2b-9c3d-123456789abc"/>
+                <textElement verticalAlignment="Middle">
+                    <paragraph leftIndent="8"/>
+                </textElement>
+                <text><![CDATA[INTERESTS]]></text>
+            </staticText>
+
+            <textField isStretchWithOverflow="true">
+                <reportElement style="SidebarTextStyle" x="15" y="28" width="170" height="40" uuid="7a2e2c1a-0013-4a2b-9c3d-123456789abc"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$P{P_INTERESTS}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <!-- ===================== COLUMN FOOTER (Experience Section) ===================== -->
+    <columnFooter>
+        <band height="300" splitType="Prevent">
+            <staticText>
+                <reportElement style="SectionHeaderStyle" x="220" y="0" width="360" height="22" forecolor="#1A202C" backcolor="#E2E8F0" uuid="7a2e2c1a-0016-4a2b-9c3d-123456789abc"/>
+                <textElement verticalAlignment="Middle">
+                    <paragraph leftIndent="10"/>
+                </textElement>
+                <text><![CDATA[PROFESSIONAL EXPERIENCE]]></text>
+            </staticText>
+
+            <componentElement>
+                <reportElement x="220" y="28" width="360" height="270" uuid="7a2e2c1a-0017-4a2b-9c3d-123456789abc"/>
+                <jr:list printOrder="Vertical">
+                    <datasetRun subDataset="ExperienceDataset" uuid="7a2e2c1a-0018-4a2b-9c3d-123456789abc">
+                        <dataSourceExpression><![CDATA[$P{P_EXPERIENCE}]]></dataSourceExpression>
+                    </datasetRun>
+                    <jr:listContents height="90" width="360">
+                        <textField>
+                            <reportElement style="CompanyStyle" x="0" y="0" width="260" height="16" uuid="7a2e2c1a-0019-4a2b-9c3d-123456789abc"/>
+                            <textElement/>
+                            <textFieldExpression><![CDATA[$F{company}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement style="DateStyle" x="265" y="0" width="95" height="16" uuid="7a2e2c1a-001a-4a2b-9c3d-123456789abc"/>
+                            <textElement textAlignment="Right"/>
+                            <textFieldExpression><![CDATA[$F{dateRange}]]></textFieldExpression>
+                        </textField>
+
+                        <textField>
+                            <reportElement style="RoleStyle" x="0" y="16" width="360" height="14" forecolor="#4A5568" uuid="7a2e2c1a-001b-4a2b-9c3d-123456789abc"/>
+                            <textElement/>
+                            <textFieldExpression><![CDATA[$F{role}]]></textFieldExpression>
+                        </textField>
+
+                        <textField>
+                            <reportElement style="MainTextStyle" x="0" y="32" width="360" height="12" forecolor="#718096" uuid="7a2e2c1a-001c-4a2b-9c3d-123456789abc"/>
+                            <textElement/>
+                            <textFieldExpression><![CDATA[
+                                ($F{location} == null ? "" : $F{location} + "  |  ") +
+                                ($F{techStack} == null ? "" : $F{techStack})
+                            ]]></textFieldExpression>
+                        </textField>
+
+                        <textField isStretchWithOverflow="true" textAdjust="StretchHeight">
+                            <reportElement style="MainTextStyle" x="0" y="48" width="360" height="40" uuid="7a2e2c1a-001d-4a2b-9c3d-123456789abc"/>
+                            <textElement>
+                                <paragraph leftIndent="10"/>
+                            </textElement>
+                            <textFieldExpression><![CDATA[
+                                $F{highlights} == null ? "" :
+                                "<ul style='margin:0;padding-left:15px;'>" +
+                                $F{highlights}.stream()
+                                    .map(h -> "<li>" + h + "</li>")
+                                    .collect(java.util.stream.Collectors.joining()) +
+                                "</ul>"
+                            ]]></textFieldExpression>
+                        </textField>
+                    </jr:listContents>
+                </jr:list>
+            </componentElement>
+        </band>
+    </columnFooter>
+
+    <!-- ===================== PAGE FOOTER (Education Section) ===================== -->
+    <pageFooter>
+        <band height="120" splitType="Prevent">
+            <staticText>
+                <reportElement style="SectionHeaderStyle" x="220" y="0" width="360" height="22" forecolor="#1A202C" backcolor="#E2E8F0" uuid="7a2e2c1a-001e-4a2b-9c3d-123456789abc"/>
+                <textElement verticalAlignment="Middle">
+                    <paragraph leftIndent="10"/>
+                </textElement>
+                <text><![CDATA[EDUCATION]]></text>
+            </staticText>
+
+            <componentElement>
+                <reportElement x="220" y="28" width="360" height="90" uuid="7a2e2c1a-001f-4a2b-9c3d-123456789abc"/>
+                <jr:list printOrder="Vertical">
+                    <datasetRun subDataset="EducationDataset" uuid="7a2e2c1a-0020-4a2b-9c3d-123456789abc">
+                        <dataSourceExpression><![CDATA[$P{P_EDUCATION}]]></dataSourceExpression>
+                    </datasetRun>
+                    <jr:listContents height="44" width="360">
+                        <textField>
+                            <reportElement style="CompanyStyle" x="0" y="0" width="260" height="16" uuid="7a2e2c1a-0021-4a2b-9c3d-123456789abc"/>
+                            <textElement/>
+                            <textFieldExpression><![CDATA[$F{institution}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement style="DateStyle" x="265" y="0" width="95" height="16" uuid="7a2e2c1a-0022-4a2b-9c3d-123456789abc"/>
+                            <textElement textAlignment="Right"/>
+                            <textFieldExpression><![CDATA[$F{dateRange}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement style="RoleStyle" x="0" y="16" width="360" height="14" forecolor="#4A5568" uuid="7a2e2c1a-0023-4a2b-9c3d-123456789abc"/>
+                            <textElement/>
+                            <textFieldExpression><![CDATA[$F{degree}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement style="MainTextStyle" x="0" y="30" width="360" height="12" forecolor="#718096" uuid="7a2e2c1a-0024-4a2b-9c3d-123456789abc"/>
+                            <textElement/>
+                            <textFieldExpression><![CDATA[
+                                ($F{location} == null ? "" : $F{location} + "  |  ") +
+                                ($F{gpa} == null ? "" : "GPA: " + $F{gpa})
+                            ]]></textFieldExpression>
+                        </textField>
+                    </jr:listContents>
+                </jr:list>
+            </componentElement>
+        </band>
+    </pageFooter>
+
+    <!-- ===================== LAST PAGE FOOTER (Projects Section) ===================== -->
+    <lastPageFooter>
+        <band height="140" splitType="Prevent">
+            <printWhenExpression><![CDATA[$P{P_PROJECTS} != null]]></printWhenExpression>
+
+            <staticText>
+                <reportElement style="SectionHeaderStyle" x="220" y="0" width="360" height="22" forecolor="#1A202C" backcolor="#E2E8F0" uuid="7a2e2c1a-0025-4a2b-9c3d-123456789abc"/>
+                <textElement verticalAlignment="Middle">
+                    <paragraph leftIndent="10"/>
+                </textElement>
+                <text><![CDATA[FEATURED PROJECTS]]></text>
+            </staticText>
+
+            <componentElement>
+                <reportElement x="220" y="28" width="360" height="110" uuid="7a2e2c1a-0026-4a2b-9c3d-123456789abc"/>
+                <jr:list printOrder="Vertical">
+                    <datasetRun subDataset="ProjectDataset" uuid="7a2e2c1a-0027-4a2b-9c3d-123456789abc">
+                        <dataSourceExpression><![CDATA[$P{P_PROJECTS}]]></dataSourceExpression>
+                    </datasetRun>
+                    <jr:listContents height="50" width="360">
+                        <textField>
+                            <reportElement style="CompanyStyle" x="0" y="0" width="280" height="16" uuid="7a2e2c1a-0028-4a2b-9c3d-123456789abc"/>
+                            <textElement/>
+                            <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement style="DateStyle" x="285" y="0" width="75" height="16" uuid="7a2e2c1a-0029-4a2b-9c3d-123456789abc"/>
+                            <textElement textAlignment="Right"/>
+                            <textFieldExpression><![CDATA[$F{url}]]></textFieldExpression>
+                        </textField>
+                        <textField isStretchWithOverflow="true">
+                            <reportElement style="MainTextStyle" x="0" y="18" width="360" height="16" uuid="7a2e2c1a-002a-4a2b-9c3d-123456789abc"/>
+                            <textElement/>
+                            <textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+                        </textField>
+                        <textField>
+                            <reportElement style="MainTextStyle" x="0" y="36" width="360" height="12" forecolor="#63B3ED" uuid="7a2e2c1a-002b-4a2b-9c3d-123456789abc"/>
+                            <textElement/>
+                            <textFieldExpression><![CDATA[$F{techStack}]]></textFieldExpression>
+                        </textField>
+                    </jr:listContents>
+                </jr:list>
+            </componentElement>
+        </band>
+    </lastPageFooter>
+
+    <!-- ===================== SUMMARY (Page Numbers) ===================== -->
+    <summary>
+        <band height="20" splitType="Stretch">
+            <textField evaluationTime="Report">
+                <reportElement x="220" y="0" width="360" height="16" forecolor="#A0AEC0" uuid="7a2e2c1a-002c-4a2b-9c3d-123456789abc"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of " + $V{PAGE_COUNT}]]></textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+</jasperReport>

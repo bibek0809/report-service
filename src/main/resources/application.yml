@@ -1,0 +1,45 @@
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: report-service
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:uat}
+
+  # WebFlux with Netty (non-blocking)
+  webflux:
+    base-path: /
+
+  threads:
+    virtual:
+      enabled: true
+
+# Jasper Configuration
+jasper:
+  template-path: classpath:/reports/
+  compiled-report-cache-path: ${java.io.tmpdir}/jasper-cache
+  cache-enabled: true
+  generation-timeout: 30s
+  async-compilation: true
+
+# Server - Netty tuned for high concurrency
+server:
+  netty:
+    connection-timeout: 2s
+    idle-timeout: 15s
+
+# Logging
+logging:
+  level:
+    com.example.jasper: INFO
+    reactor.netty: WARN
+
+# Management / Metrics
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  metrics:
+    enable:
+      jasper: true
